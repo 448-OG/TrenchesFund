@@ -4,7 +4,7 @@ use dioxus::prelude::*;
 use gloo_timers::callback::Timeout;
 use wallet_adapter::{ConnectionInfo, WalletAdapter};
 
-use crate::{Dashboard, Footer, Header};
+use crate::{Dashboard, Explore, Footer, Header, Home, OrganizationView, ProjectView};
 
 const FAVICON: Asset = asset!("/assets/favicon.png");
 const TAILWIND_CSS: Asset = asset!("/assets/tailwind.css");
@@ -40,7 +40,7 @@ pub(crate) fn App() -> Element {
         document::Link { rel: "icon", href: FAVICON }
         document::Link { rel: "stylesheet", href: TAILWIND_CSS }
 
-        document::Title {"Atoll | Open Source Project Launchpad"}
+        document::Title {"Trenches Fund | Financing Open Source Maintainers while they Build in the Trenches"}
 
         div { class: "w-full flex min-h-screen font-[sans-serif] dark:bg-rich-black bg-white text-black dark:text-white",
 
@@ -119,11 +119,19 @@ fn Notification() -> Element {
 }
 
 #[derive(Clone, Debug, PartialEq, Routable)]
-#[rustfmt::skip]
+// #[rustfmt::skip]
 pub enum Route {
     #[layout(Header)]
     #[route("/")]
+    Home(),
+    #[route("/dashboard")]
     Dashboard(),
+    #[route("/explore")]
+    Explore(),
+    #[route("/project/:..id")]
+    ProjectView { id: Vec<String> },
+    #[route("/organization/:..id")]
+    OrganizationView { id: Vec<String> },
     #[end_layout]
     #[route("/:..route")]
     PageNotFound { route: Vec<String> },

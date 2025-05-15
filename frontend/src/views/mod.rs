@@ -1,8 +1,14 @@
 mod dashboard;
 pub use dashboard::*;
 
-mod footer;
-pub use footer::*;
+mod home;
+pub use home::*;
 
-mod connect_first;
-pub use connect_first::*;
+mod explore;
+pub use explore::*;
+
+mod organization;
+pub use organization::*;
+
+mod project;
+pub use project::*;

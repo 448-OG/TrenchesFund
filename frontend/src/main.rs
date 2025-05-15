@@ -5,8 +5,8 @@ use dioxus::prelude::*;
 mod views;
 use views::*;
 
-mod header;
-use header::*;
+mod components;
+pub(crate) use components::*;
 
 mod utils;
 use utils::*;

@@ -16,9 +16,11 @@ pub fn Header() -> Element {
     rsx! {
         div { class:"flex flex-col w-full gap-4 justify-between items-center",
             nav {class:"flex w-full justify-around items-center p-1 dark:shadow-lg shadow-sm border-b-[1px] dark:border-true-blue",
-                div{class:"p-1 flex items-center", span{class:"w-[25px]",img{src:LOGO, alt:"LOGO"}}, span {class:"text-2xl font-smooch", "Atoll" } }
+                div{class:"p-1 flex items-center", span{class:"w-[25px]",img{src:LOGO, alt:"LOGO"}}, span {class:"text-3xl font-smooch", "Trenches" } }
                 div{ class:"flex items-center justify-around w-[80%] mx-2",
-                    {NavItem(Route::Dashboard, "Home")}
+                    {NavItem(Route::Home, "Home")}
+                    {NavItem(Route::Explore, "Explore")}
+                    {NavItem(Route::Dashboard, "Donations")}
                 }
                 NavWalletItem{show_modal, show_connecting, shortened_address}
             }
@@ -124,7 +126,7 @@ pub fn ConnectWalletModalModal(show_modal: Signal<bool>, show_connecting: Signal
 
 fn NavItem(route: fn() -> Route, text: &str) -> Element {
     rsx! {
-        Link {class:"w-[10%] hover:bg-transparent dark:text-blue-yonder dark:hover:text-white text-true-blue hover:text-black rounded-lg text-center p-1", to: route(), {text}}
+        Link {class:"w-[10%] font-smooch text-xl hover:bg-transparent dark:text-blue-yonder dark:hover:text-white text-true-blue hover:text-black rounded-lg text-center p-1", to: route(), {text}}
     }
 }
 
@@ -142,7 +144,7 @@ fn NavWalletItem(
         } else {
             rsx! {
                 div {class:"flex w-full items-center justify-center",
-                button {class:"text-sm",
+                button {class:"text-sm md:text-lg font-smooch min-w-[60px]",
                     onclick:move|_|{show_modal.set(true);},
                         "Select Wallet"
                     }
