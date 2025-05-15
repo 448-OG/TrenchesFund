@@ -25,3 +25,9 @@
 ::-webkit-scrollbar-thumb:hover {
     background: transparent;
 }
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+}

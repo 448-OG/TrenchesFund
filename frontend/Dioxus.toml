@@ -1,14 +1,14 @@
 [application]
 
 # App (Project) Name
-name = "dioxus-adapter"
+name = "trenches-frontend"
 
 # Dioxus App Default Platform
 # web, desktop, fullstack
 default_platform = "web"
 
 # `build` & `serve` dist path
-out_dir = "dist"
+out_dir = "../"
 
 # resource (assets) file folder
 asset_dir = "assets"
@@ -16,7 +16,7 @@ asset_dir = "assets"
 [web.app]
 
 # HTML title tag content
-title = "Rust Wallet Adapter"
+title = "Trenches Fund"
 
 [web.watcher]
 index_on_404 = true
