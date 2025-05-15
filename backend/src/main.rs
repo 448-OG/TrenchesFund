@@ -3,9 +3,9 @@ use async_lock::{OnceCell, RwLock};
 use atoll_common::{Project, Publisher};
 use ed25519_dalek::VerifyingKey;
 use rocket::{fs::FileServer, serde::json::Json};
+use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use surrealkv::{Options, Store};
-
 mod db;
 pub(crate) use db::*;
 
@@ -20,9 +20,33 @@ pub(crate) const PROJECTS_DB: &str = "PROJECTS";
 #[macro_use]
 extern crate rocket;
 
+#[derive(Debug, PartialEq, Eq, Serialize, Deserialize)]
+pub enum Outcome<T> {
+    Success(T),
+    Failure(String),
+}
+
 #[get("/projects")]
-fn projects() -> Json<Vec<Project>> {
-    Json(vec![Project::default()])
+async fn projects() -> Json<Outcome<Vec<Project>>> {
+    if let Ok(projects_raw) = DbState::values(PROJECTS_DB).await {
+        let mut projects = Vec::<Project>::default();
+
+        if projects_raw
+            .into_iter()
+            .try_for_each(|project_bytes| {
+                projects.push(bincode::deserialize::<Project>(&project_bytes)?);
+
+                Ok::<(), BackendError>(())
+            })
+            .is_ok()
+        {
+            Json(Outcome::Success(projects))
+        } else {
+            Json(Outcome::Failure("Internal Server Error".to_string()))
+        }
+    } else {
+        Json(Outcome::Failure("Internal Server Error".to_string()))
+    }
 }
 
 #[rocket::main]
