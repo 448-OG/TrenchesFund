@@ -1,5 +1,5 @@
 # Atoll
-### From The Trenches into the Light
+### Financing Open Source Maintainers while they Build in the Trenches
 
 
 A launchpad for open source projects on Solana to increase reach and reduce maintainer  burnout.

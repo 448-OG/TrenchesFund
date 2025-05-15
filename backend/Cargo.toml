@@ -1,0 +1,21 @@
+[package]
+name = "atoll-backend"
+version.workspace = true
+authors.workspace = true
+edition.workspace = true
+license.workspace = true
+description.workspace = true
+publish.workspace = true
+
+[dependencies]
+async-dup = "1.2.4"
+async-lock = "3.4.0"
+atoll-common.workspace = true
+ed25519-dalek.workspace = true
+rocket = { version = "0.5.1", features = ["json", "tls"] }
+surrealkv = "0.9.1"
+tokio = { version = "1.45.0", features = ["full"] }
+serde_json.workspace = true
+thiserror = "2.0.12"
+serde.workspace = true
+bincode = "1"
