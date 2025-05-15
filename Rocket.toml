@@ -1,0 +1,21 @@
+[default]
+address = "0.0.0.0"
+limits = { form = "64 kB", json = "1 MiB" }
+port = 8000
+
+## set only when compiled in debug mode, i.e, `cargo build`
+[debug]
+port = 8000
+## only the `json` key from `default` will be overridden; `form` will remain
+limits = { json = "10MiB" }
+
+
+## set only when compiled in release mode, i.e, `cargo build --release`
+[release]
+port = 443
+ip_header = false
+
+
+# [default.tls]
+# key = "/etc/letsencrypt/live/<domain_name>/privkey.pem"     # Path or bytes to DER-encoded ASN.1 PKCS#1/#8 or SEC1 key.
+# certs = "/etc/letsencrypt/live/<domain_name>/cert.pem" # Path or bytes to DER-encoded X.509 TLS cert chain.
