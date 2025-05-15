@@ -1,4 +1,4 @@
-# Atoll
+# The Trenches Fund
 ### Financing Open Source Maintainers while they Build in the Trenches
 
 
