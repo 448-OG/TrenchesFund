@@ -21,6 +21,7 @@ qrcodegen = "1.8.0"
 percent-encoding = "2.3.1"
 fastrand = "2.3.0"
 atoll-common.workspace = true
+reqwest = { version = "0.12.15", default-features = false, features = ["rustls-tls", "rustls-tls-no-provider"] }
 
 
 [features]
