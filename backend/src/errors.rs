@@ -25,6 +25,8 @@ pub enum BackendError {
     PermissionDenied,
     #[error("Unable to deserialize JSON")]
     JsonDeserialize,
+    #[error("Unable to deserialize or deserialize bytes")]
+    BincodeError,
 }
 
 impl From<surrealkv::Error> for BackendError {
@@ -36,5 +38,11 @@ impl From<surrealkv::Error> for BackendError {
 impl From<serde_json::Error> for BackendError {
     fn from(_: serde_json::Error) -> Self {
         Self::JsonDeserialize
+    }
+}
+
+impl From<bincode::Error> for BackendError {
+    fn from(_: bincode::Error) -> Self {
+        Self::BincodeError
     }
 }

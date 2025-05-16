@@ -42,7 +42,7 @@ pub(crate) fn App() -> Element {
 
         document::Title {"Trenches Fund | Financing Open Source Maintainers while they Build in the Trenches"}
 
-        div { class: "w-full flex min-h-screen font-[sans-serif] dark:bg-rich-black bg-white text-black dark:text-white",
+        div { class: "w-full flex min-h-screen font-[sans-serif] bg-rich-black text-white",
 
             Notification {}
 

@@ -15,26 +15,37 @@ pub fn foo() -> Publisher {
     let merch = vec![
         Merch {
             supplier: "Global SOL Merch Industries".to_string(),
-            image: "/assets/sol-mug.jpg".to_string(),
+            image: "/images/sol-mug.png".to_string(),
             name: "Solana Branded Mug".to_string(),
             description: "Lovely Solana Branded Mug for sipping while in the trenches".to_string(),
         },
         Merch {
             supplier: "Global SOL Merch Industries".to_string(),
-            image: "/assets/sol-hoodie.jpg".to_string(),
+            image: "/images/sol-sticker.png".to_string(),
+            name: "Laptop Sticker".to_string(),
+            description: "Laptop powered by Solana love.".to_string(),
+        },
+        Merch {
+            supplier: "Global SOL Merch Industries".to_string(),
+            image: "/images/sol-hoodie.png".to_string(),
             name: "Solana Branded Hoodie".to_string(),
             description: "Stay warm while in the trenches".to_string(),
         },
         Merch {
-            supplier: "Laptop Sticker".to_string(),
-            image: "/assets/sol-mug.jpg".to_string(),
-            name: "Solana Branded Mug".to_string(),
-            description: "Laptop powered by Solana love.".to_string(),
+            supplier: "Global SOL Merch Industries".to_string(),
+            image: "/images/sol-mouse-pad.png".to_string(),
+            name: "Solana Branded Mouse Pad".to_string(),
+            description: "Every Click at the Speed of Light".to_string(),
         },
     ];
 
     Publisher {
         name: "JAMII DAO".to_string(),
+        logo: "/images/jamii-dao-logo.svg".to_string(),
+        icon: "/images/jamii-dao-icon.svg".to_string(),
+        description: "Payments and Decentralized Network Libraries and Tools".to_string(),
+        codebase: "https://github.com/JamiiDao/".to_string(),
+        website: "https://jamiidao.app/".to_string(),
         public_key: publisher_pubkey,
         mint: VerifyingKey::from_bytes(&[9u8; 32]).unwrap(),
         merch,
@@ -43,12 +54,12 @@ pub fn foo() -> Publisher {
 
 pub fn projects(publisher: &Publisher) -> Vec<Project> {
     let phishing1 = Phishing { 
-        name: "SolanaWalletAdapter".to_string(), 
+        name: "Jamii-Dao/SolanaWalletAdapter".to_string(), 
         uri: "https://github.com/Jamii-Dao/SolanaWalletAdapter".to_string(), 
         analysis: "This project impersonates the publisher of this library. The creator of the organization added a hyphen between `Jamii` and `Dao` to create a Github organization called `Jamii-Dao` which is similar to the publisher of this library `JamiiDao`. They mirrored the commits of this library to make it seem like the publisher of this library is part of their phishing organization.".to_string(), 
         other_uri: vec![
             ("x.com/JamiiDao".to_string(), "x.com/JamiiDao".to_string()),
-           ("Phishing Codebase".to_string(), "https://github.com/Jamii-Dao/Solan,aWalletAdapter/".to_string()),
+           ("Phishing Codebase".to_string(), "https://github.com/Jamii-Dao/SolanaWalletAdapter/".to_string()),
            ("Phishing Website".to_string(), "https://jamiidao.com/".to_string()),
            ("Phishing Meme Coin".to_string(), "https://pump.fun/coin/3ZxaS6sDzdJjiwCRtf3RkWfEw25XeU5bLsvkmkNArxcp".to_string())
         ] 
@@ -58,8 +69,8 @@ pub fn projects(publisher: &Publisher) -> Vec<Project> {
     let project1 = Project {
         id: blake3::hash(project1_name.as_bytes()),
         name: project1_name.to_string(),
-        logo: "/assets/wallet-adapter-logo.svg".to_string(),
-        icon: "/assets/wallet-adapter-icon.svg".to_string(),
+        logo: "/images/wallet-adapter-logo.svg".to_string(),
+        icon: "/images/wallet-adapter-icon.svg".to_string(),
         publisher: (
             publisher.short_address(),
             publisher.address(),
@@ -75,7 +86,7 @@ pub fn projects(publisher: &Publisher) -> Vec<Project> {
         description: "The wallet-adapter library is a Rust crate that performs actions between a Rust WebAssembly frontend and browser wallet extensions that implement the wallet-standard.".to_string()
     };
     let phishing2 = Phishing { 
-        name: " SolanaPayments".to_string(), 
+        name: "Jamii-Dao/SolanaPayments".to_string(), 
         uri: "https://github.com/Jamii-Dao/SolanaPayments".to_string(), 
         analysis: "This project impersonates the publisher of this library. The creator of the organization added a hyphen between `Jamii` and `Dao` to create a Github organization called `Jamii-Dao` which is similar to the publisher of this library `JamiiDao`. They mirrored the commits of this library to make it seem like the publisher of this library is part of their phishing organization.".to_string(), 
         other_uri: vec![
@@ -90,8 +101,8 @@ pub fn projects(publisher: &Publisher) -> Vec<Project> {
     let project2 = Project {
         id: blake3::hash(project2_name.as_bytes()),
         name: project2_name.to_string(),
-        logo: "/assets/solana-payments-logo.svg".to_string(),
-        icon: "/assets/solana-payments-icon.svg".to_string(),
+        logo: "/images/solana-payments-logo.svg".to_string(),
+        icon: "/images/solana-payments-icon.svg".to_string(),
         publisher: (
             publisher.short_address(),
             publisher.address(),
@@ -180,9 +191,14 @@ impl Default for Project {
     }
 }
 
-#[derive(PartialEq, Eq, Serialize, Deserialize)]
+#[derive(PartialEq, Eq, Serialize, Deserialize, Clone)]
 pub struct Publisher {
     pub name: String,
+    pub icon: String,
+    pub logo: String,
+    pub description: String,
+    pub codebase: String,
+    pub website: String,
     pub public_key: VerifyingKey,
     pub mint: VerifyingKey,
     pub merch: Vec<Merch>,
@@ -219,6 +235,11 @@ impl Debug for Publisher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Publisher")
             .field("name", &self.name)
+            .field("icon", &self.icon)
+            .field("logo", &self.logo)
+            .field("description", &self.description)
+            .field("codebase", &self.codebase)
+            .field("website", &self.website)
             .field("public_key", &self.address())
             .field("mint", &self.mint_address())
             .field("merch", &self.merch)
@@ -230,6 +251,11 @@ impl Default for Publisher {
     fn default() -> Self {
         Self {
             name: "Foo Organization".to_string(),
+            icon: "https://picsum.photos/100".to_string(),
+            logo: "https://picsum.photos/100".to_string(),
+            description: "Default org description".to_string(),
+            codebase: "foo://code.base".to_string(),
+            website: "foo://example.project".to_string(),
             public_key: VerifyingKey::from_bytes(&[0u8; 32]).unwrap(),
             mint: VerifyingKey::from_bytes(&[0u8; 32]).unwrap(),
             merch: vec![Merch::default()],
