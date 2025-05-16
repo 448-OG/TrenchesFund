@@ -1,5 +1,5 @@
 [package]
-name = "atoll-backend"
+name = "trenchesfund-backend"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -10,7 +10,7 @@ publish.workspace = true
 [dependencies]
 async-dup = "1.2.4"
 async-lock = "3.4.0"
-atoll-common.workspace = true
+trenchesfund-common.workspace = true
 ed25519-dalek.workspace = true
 rocket = { version = "0.5.1", features = ["json", "tls"] }
 surrealkv = "0.9.1"

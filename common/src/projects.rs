@@ -3,124 +3,6 @@ use std::fmt::{Debug, Display};
 use ed25519_dalek::VerifyingKey;
 use serde::{Deserialize, Serialize};
 
-pub fn foo() -> Publisher {
-    let publisher_address = "5bAvxZRsixc9F6fL1Kzv2jfgCZ1UXrVW5FsWcHfppZUy";
-    let publisher_bytes: [u8; 32] = bs58::decode(publisher_address)
-        .into_vec()
-        .unwrap()
-        .try_into()
-        .unwrap();
-    let publisher_pubkey = VerifyingKey::from_bytes(&publisher_bytes).unwrap();
-
-    let merch = vec![
-        Merch {
-            supplier: "Global SOL Merch Industries".to_string(),
-            image: "/images/sol-mug.png".to_string(),
-            name: "Solana Branded Mug".to_string(),
-            description: "Lovely Solana Branded Mug for sipping while in the trenches".to_string(),
-        },
-        Merch {
-            supplier: "Global SOL Merch Industries".to_string(),
-            image: "/images/sol-sticker.png".to_string(),
-            name: "Laptop Sticker".to_string(),
-            description: "Laptop powered by Solana love.".to_string(),
-        },
-        Merch {
-            supplier: "Global SOL Merch Industries".to_string(),
-            image: "/images/sol-hoodie.png".to_string(),
-            name: "Solana Branded Hoodie".to_string(),
-            description: "Stay warm while in the trenches".to_string(),
-        },
-        Merch {
-            supplier: "Global SOL Merch Industries".to_string(),
-            image: "/images/sol-mouse-pad.png".to_string(),
-            name: "Solana Branded Mouse Pad".to_string(),
-            description: "Every Click at the Speed of Light".to_string(),
-        },
-    ];
-
-    Publisher {
-        name: "JAMII DAO".to_string(),
-        logo: "/images/jamii-dao-logo.svg".to_string(),
-        icon: "/images/jamii-dao-icon.svg".to_string(),
-        description: "Payments and Decentralized Network Libraries and Tools".to_string(),
-        codebase: "https://github.com/JamiiDao/".to_string(),
-        website: "https://jamiidao.app/".to_string(),
-        public_key: publisher_pubkey,
-        mint: VerifyingKey::from_bytes(&[9u8; 32]).unwrap(),
-        merch,
-    }
-}
-
-pub fn projects(publisher: &Publisher) -> Vec<Project> {
-    let phishing1 = Phishing { 
-        name: "Jamii-Dao/SolanaWalletAdapter".to_string(), 
-        uri: "https://github.com/Jamii-Dao/SolanaWalletAdapter".to_string(), 
-        analysis: "This project impersonates the publisher of this library. The creator of the organization added a hyphen between `Jamii` and `Dao` to create a Github organization called `Jamii-Dao` which is similar to the publisher of this library `JamiiDao`. They mirrored the commits of this library to make it seem like the publisher of this library is part of their phishing organization.".to_string(), 
-        other_uri: vec![
-            ("x.com/JamiiDao".to_string(), "x.com/JamiiDao".to_string()),
-           ("Phishing Codebase".to_string(), "https://github.com/Jamii-Dao/SolanaWalletAdapter/".to_string()),
-           ("Phishing Website".to_string(), "https://jamiidao.com/".to_string()),
-           ("Phishing Meme Coin".to_string(), "https://pump.fun/coin/3ZxaS6sDzdJjiwCRtf3RkWfEw25XeU5bLsvkmkNArxcp".to_string())
-        ] 
-    };
-
-    let project1_name = "wallet-adapter";
-    let project1 = Project {
-        id: blake3::hash(project1_name.as_bytes()),
-        name: project1_name.to_string(),
-        logo: "/images/wallet-adapter-logo.svg".to_string(),
-        icon: "/images/wallet-adapter-icon.svg".to_string(),
-        publisher: (
-            publisher.short_address(),
-            publisher.address(),
-            publisher.name.clone(),
-        ),
-        codebase: "https://github.com/JamiiDao/SolanaWalletAdapter".to_string(),
-        website: Some("https://jamiidao.app".to_string()),
-        package_uri: "https://crates.io/crates/wallet-adapter".to_string(),
-        docs: "https://jamiidao.github.io/SolanaWalletAdapter/".to_string(),
-        phishing: vec![phishing1],
-        category: ProjectCategory::Wallet,
-        language: CodeLanguage::Rust,
-        description: "The wallet-adapter library is a Rust crate that performs actions between a Rust WebAssembly frontend and browser wallet extensions that implement the wallet-standard.".to_string()
-    };
-    let phishing2 = Phishing { 
-        name: "Jamii-Dao/SolanaPayments".to_string(), 
-        uri: "https://github.com/Jamii-Dao/SolanaPayments".to_string(), 
-        analysis: "This project impersonates the publisher of this library. The creator of the organization added a hyphen between `Jamii` and `Dao` to create a Github organization called `Jamii-Dao` which is similar to the publisher of this library `JamiiDao`. They mirrored the commits of this library to make it seem like the publisher of this library is part of their phishing organization.".to_string(), 
-        other_uri: vec![
-            ("x.com/JamiiDao".to_string(), "x.com/JamiiDao".to_string()),
-           ("Phishing Codebase".to_string(), "https://github.com/Jamii-Dao/SolanaPayments".to_string()),
-           ("Phishing Website".to_string(), "https://jamiidao.com/".to_string()),
-           ("Phishing Meme Coin".to_string(), "https://pump.fun/coin/3ZxaS6sDzdJjiwCRtf3RkWfEw25XeU5bLsvkmkNArxcp".to_string())
-        ] 
-    };
-
-    let project2_name = "solana-payments";
-    let project2 = Project {
-        id: blake3::hash(project2_name.as_bytes()),
-        name: project2_name.to_string(),
-        logo: "/images/solana-payments-logo.svg".to_string(),
-        icon: "/images/solana-payments-icon.svg".to_string(),
-        publisher: (
-            publisher.short_address(),
-            publisher.address(),
-            publisher.name.clone(),
-        ),
-        codebase: "https://github.com/JamiiDao/SolanaPayments".to_string(),
-        website: Some("https://jamiidao.app".to_string()),
-        package_uri: "https://crates.io/crates/solana-payments".to_string(),
-        docs: "https://docs.rs/solana-payments/".to_string(),
-        phishing: vec![phishing2],
-        category: ProjectCategory::Payments,
-        language: CodeLanguage::Rust,
-        description: "A lightweight library for parsing and creating Solana Pay URLs written in Rust.".to_string()
-    };
-
-    vec![project1,project2]
-}
-
 #[derive(Debug, PartialEq, Eq, Clone, Serialize, Deserialize)]
 pub struct Project {
     pub id: blake3::Hash,
@@ -135,7 +17,7 @@ pub struct Project {
     pub category: ProjectCategory,
     pub language: CodeLanguage,
     pub package_uri: String,
-    pub description: String
+    pub description: String,
 }
 
 impl Project {
@@ -186,7 +68,7 @@ impl Default for Project {
             category: ProjectCategory::default(),
             language: CodeLanguage::default(),
             package_uri: "foo://packaging-example".to_string(),
-            description: "Default example for a project".to_string()
+            description: "Default example for a project".to_string(),
         }
     }
 }

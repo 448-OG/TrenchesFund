@@ -1,5 +1,5 @@
-use atoll_common::{Outcome, Project, REST_ENDPOINT};
 use dioxus::prelude::*;
+use trenchesfund_common::{Outcome, Project, REST_ENDPOINT};
 
 use crate::{InstitutionIcon, Loader, NotificationInfo, Route, GLOBAL_MESSAGE};
 

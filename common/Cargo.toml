@@ -1,5 +1,5 @@
 [package]
-name = "atoll-common"
+name = "trenchesfund-common"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true

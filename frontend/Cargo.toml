@@ -1,5 +1,5 @@
 [package]
-name = "atoll-frontend"
+name = "trenchesfund-frontend"
 version.workspace = true
 authors.workspace = true
 edition.workspace = true
@@ -20,7 +20,7 @@ solana-transaction-error = { version = "2.1.13", features = ["serde"] }
 qrcodegen = "1.8.0"
 percent-encoding = "2.3.1"
 fastrand = "2.3.0"
-atoll-common.workspace = true
+trenchesfund-common.workspace = true
 reqwest = { version = "0.12.15", default-features = false, features = [
     "rustls-tls",
     "rustls-tls-no-provider",
