@@ -1,11 +1,6 @@
-use async_dup::Arc;
-use async_lock::{OnceCell, RwLock};
+use async_lock::OnceCell;
 use atoll_common::{Outcome, Project, Publisher};
-use ed25519_dalek::VerifyingKey;
 use rocket::{fs::FileServer, serde::json::Json};
-use serde::{Deserialize, Serialize};
-use std::path::PathBuf;
-use surrealkv::{Options, Store};
 
 mod db;
 pub(crate) use db::*;

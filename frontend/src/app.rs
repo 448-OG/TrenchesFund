@@ -16,8 +16,6 @@ pub(crate) static WALLET_ADAPTER: GlobalSignal<WalletAdapter> =
 pub(crate) static GLOBAL_MESSAGE: GlobalSignal<VecDeque<NotificationInfo>> =
     Signal::global(|| VecDeque::default());
 
-pub(crate) static LOADING: GlobalSignal<Option<()>> = Signal::global(|| Option::default());
-
 pub(crate) static ACTIVE_CONNECTION: GlobalSignal<ConnectionInfo> =
     Signal::global(|| ConnectionInfo::default());
 

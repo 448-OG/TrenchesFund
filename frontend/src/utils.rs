@@ -4,29 +4,6 @@ use wallet_adapter::{wasm_bindgen_futures::JsFuture, WalletResult};
 
 use crate::WINDOW;
 
-pub fn trunk_cluster_name(name: &str) -> String {
-    if name.len() > 10 {
-        name.chars().take(10).collect::<String>() + "..."
-    } else {
-        name.to_string()
-    }
-}
-
-const EXPLORER: &str = "https://explorer.solana.com/";
-pub const DEVNET_URI: &str = "https://api.devnet.solana.com/";
-
-pub fn format_address_url(address: &str) -> String {
-    String::new() + EXPLORER + "address/" + address + "?cluster=devnet"
-}
-
-pub fn format_tx_url(tx: &str) -> String {
-    String::new() + EXPLORER + "tx/" + tx + "?cluster=devnet"
-}
-
-pub(crate) fn link_target_blank(href: &str, text: &str) -> Element {
-    rsx! {a {class:"underline", href, target:"_blank", rel:"noopener noreferrer", {text}"⇗"}}
-}
-
 pub async fn copied_address(address: &str) -> WalletResult<()> {
     let pending: JsFuture = WINDOW
         .read()
