@@ -15,26 +15,37 @@ pub fn foo() -> Publisher {
     let merch = vec![
         Merch {
             supplier: "Global SOL Merch Industries".to_string(),
-            image: "/images/sol-mug.jpg".to_string(),
+            image: "/images/sol-mug.png".to_string(),
             name: "Solana Branded Mug".to_string(),
             description: "Lovely Solana Branded Mug for sipping while in the trenches".to_string(),
         },
         Merch {
             supplier: "Global SOL Merch Industries".to_string(),
-            image: "/images/sol-hoodie.jpg".to_string(),
+            image: "/images/sol-sticker.png".to_string(),
+            name: "Laptop Sticker".to_string(),
+            description: "Laptop powered by Solana love.".to_string(),
+        },
+        Merch {
+            supplier: "Global SOL Merch Industries".to_string(),
+            image: "/images/sol-hoodie.png".to_string(),
             name: "Solana Branded Hoodie".to_string(),
             description: "Stay warm while in the trenches".to_string(),
         },
         Merch {
-            supplier: "Laptop Sticker".to_string(),
-            image: "/images/sol-mug.jpg".to_string(),
-            name: "Solana Branded Mug".to_string(),
-            description: "Laptop powered by Solana love.".to_string(),
+            supplier: "Global SOL Merch Industries".to_string(),
+            image: "/images/sol-mouse-pad.png".to_string(),
+            name: "Solana Branded Mouse Pad".to_string(),
+            description: "Every Click at the Speed of Light".to_string(),
         },
     ];
 
     Publisher {
         name: "JAMII DAO".to_string(),
+        logo: "/images/jamii-dao-logo.svg".to_string(),
+        icon: "/images/jamii-dao-icon.svg".to_string(),
+        description: "Payments and Decentralized Network Libraries and Tools".to_string(),
+        codebase: "https://github.com/JamiiDao/".to_string(),
+        website: "https://jamiidao.app/".to_string(),
         public_key: publisher_pubkey,
         mint: VerifyingKey::from_bytes(&[9u8; 32]).unwrap(),
         merch,
@@ -180,9 +191,14 @@ impl Default for Project {
     }
 }
 
-#[derive(PartialEq, Eq, Serialize, Deserialize)]
+#[derive(PartialEq, Eq, Serialize, Deserialize, Clone)]
 pub struct Publisher {
     pub name: String,
+    pub icon: String,
+    pub logo: String,
+    pub description: String,
+    pub codebase: String,
+    pub website: String,
     pub public_key: VerifyingKey,
     pub mint: VerifyingKey,
     pub merch: Vec<Merch>,
@@ -219,6 +235,11 @@ impl Debug for Publisher {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("Publisher")
             .field("name", &self.name)
+            .field("icon", &self.icon)
+            .field("logo", &self.logo)
+            .field("description", &self.description)
+            .field("codebase", &self.codebase)
+            .field("website", &self.website)
             .field("public_key", &self.address())
             .field("mint", &self.mint_address())
             .field("merch", &self.merch)
@@ -230,6 +251,11 @@ impl Default for Publisher {
     fn default() -> Self {
         Self {
             name: "Foo Organization".to_string(),
+            icon: "https://picsum.photos/100".to_string(),
+            logo: "https://picsum.photos/100".to_string(),
+            description: "Default org description".to_string(),
+            codebase: "foo://code.base".to_string(),
+            website: "foo://example.project".to_string(),
             public_key: VerifyingKey::from_bytes(&[0u8; 32]).unwrap(),
             mint: VerifyingKey::from_bytes(&[0u8; 32]).unwrap(),
             merch: vec![Merch::default()],

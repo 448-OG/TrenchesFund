@@ -6,6 +6,7 @@ use rocket::{fs::FileServer, serde::json::Json};
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use surrealkv::{Options, Store};
+
 mod db;
 pub(crate) use db::*;
 
@@ -63,6 +64,26 @@ async fn projects_info(id: String) -> Json<Outcome<Option<Project>>> {
     }
 }
 
+#[post("/publisher-info/<id>")]
+async fn publisher_info(id: String) -> Json<Outcome<Option<Publisher>>> {
+    match DbState::read(PUBLISHERS_DB, &id).await {
+        Ok(project_exists) => {
+            if let Ok(value) = bincode::deserialize::<Publisher>(&project_exists) {
+                Json(Outcome::Success(Some(value)))
+            } else {
+                Json(Outcome::Failure("Internal Error".to_string()))
+            }
+        }
+        Err(error) => {
+            if error == BackendError::KvKeyNotFound {
+                Json(Outcome::Success(Option::None))
+            } else {
+                Json(Outcome::Failure("Internal Server Error".to_string()))
+            }
+        }
+    }
+}
+
 #[rocket::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     if DbState::init().await.is_err() {
@@ -72,7 +93,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
         let _ = rocket::build()
             .mount("/", FileServer::from(assets_path))
-            .mount("/", routes![projects, projects_info])
+            .mount("/", routes![projects, projects_info, publisher_info])
             .launch()
             .await?;
 

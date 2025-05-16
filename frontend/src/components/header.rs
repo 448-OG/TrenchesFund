@@ -1,9 +1,9 @@
 use dioxus::prelude::*;
 
 use crate::{
-    utils::{copied_address, DEVNET_URI},
-    ChangeWalletSvg, CloseSvg, CopySvg, DisconnectSvg, GradientWalletIcon, Loader,
-    NotificationInfo, Route, WalletSvg, ACTIVE_CONNECTION, GLOBAL_MESSAGE, LOGO, WALLET_ADAPTER,
+    utils::copied_address, ChangeWalletSvg, CloseSvg, CopySvg, DisconnectSvg, GradientWalletIcon,
+    Loader, NotificationInfo, Route, WalletSvg, ACTIVE_CONNECTION, GLOBAL_MESSAGE, LOGO,
+    WALLET_ADAPTER,
 };
 
 #[component]
@@ -11,7 +11,7 @@ pub fn Header() -> Element {
     let show_modal = use_signal(|| false);
     let show_connecting = use_signal(|| false);
 
-    let mut shortened_address = String::default();
+    let shortened_address = String::default();
 
     rsx! {
         div { class:"flex flex-col w-full gap-4 justify-between items-center",
@@ -20,7 +20,6 @@ pub fn Header() -> Element {
                 div{ class:"flex items-center justify-around w-[80%] mx-2",
                     {NavItem(Route::Home, "Home")}
                     {NavItem(Route::Explore, "Explore")}
-                    {NavItem(Route::Dashboard, "Donations")}
                 }
                 NavWalletItem{show_modal, show_connecting, shortened_address}
             }

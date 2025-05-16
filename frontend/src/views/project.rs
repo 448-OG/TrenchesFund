@@ -18,8 +18,6 @@ pub fn ProjectView(id: Vec<String>) -> Element {
         project_info.clone().write().take();
     };
 
-    // web_sys::console::log_1(&"EXEC 1".into());
-
     let id = id.first().cloned();
 
     use_effect(move || {

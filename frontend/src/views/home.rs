@@ -13,7 +13,7 @@ pub fn Home() -> Element {
 
                 div{class:"flex p-4 items-center gap-20",
                     Link { class:"bg-true-blue sm:text-6xl md:text-2xl font-smooch rounded-full py-2 px-4 mt-20", to: Route::Explore(), "EXPLORE PROJECTS" }
-                    a { class:"bg-true-blue sm:text-6xl md:text-2xl font-smooch rounded-full py-2 px-4 mt-20", href:"#", "START A COMMUNITY" }
+                    // a { class:"bg-true-blue sm:text-6xl md:text-2xl font-smooch rounded-full py-2 px-4 mt-20", href:"#", "START A COMMUNITY" }
                 }
             }
         }
