@@ -1,5 +1,5 @@
-use atoll_common::{Outcome, Project, REST_ENDPOINT};
 use dioxus::prelude::*;
+use trenchesfund_common::{Outcome, Project, REST_ENDPOINT};
 use wallet_adapter::web_sys;
 
 use crate::{

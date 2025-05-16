@@ -1,6 +1,6 @@
-use atoll_common::{Outcome, Publisher, REST_ENDPOINT};
 use dioxus::prelude::*;
 use solana_payments::SolanaPayUrl;
+use trenchesfund_common::{Outcome, Publisher, REST_ENDPOINT};
 use wallet_adapter::web_sys;
 
 use crate::{utils::copied_address, CopySvg, Loader, NotificationInfo, ReceiveSvg, GLOBAL_MESSAGE};

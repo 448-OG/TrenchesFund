@@ -1,6 +1,6 @@
 use async_lock::OnceCell;
-use atoll_common::{Outcome, Project, Publisher};
 use rocket::{fs::FileServer, serde::json::Json};
+use trenchesfund_common::{Outcome, Project, Publisher};
 
 mod db;
 pub(crate) use db::*;
@@ -91,27 +91,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
             .mount("/", routes![projects, projects_info, publisher_info])
             .launch()
             .await?;
-
-        // let publisher = atoll_common::foo();
-        // let projects = atoll_common::projects(&publisher);
-
-        // DbState::create(
-        //     PUBLISHERS_DB,
-        //     &publisher.address(),
-        //     &bincode::serialize(&publisher).unwrap(),
-        // )
-        // .await
-        // .unwrap();
-
-        // for project in projects {
-        //     DbState::create(
-        //         PROJECTS_DB,
-        //         &project.name,
-        //         &bincode::serialize(&project).unwrap(),
-        //     )
-        //     .await
-        //     .unwrap();
-        // }
 
         Ok(())
     }
